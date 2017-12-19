@@ -1,0 +1,17 @@
+{
+  "name": "cricketapi-websocket",
+  "version": "1.0.0",
+  "description": "CricketAPI Push notification code using websocket",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roanuz",
+  "license": "ISC",
+  "dependencies": {
+    "memcache-plus": "0.2.18",
+    "socket.io-client": "0.9.16"
+  }
+}
