@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "memcache-plus": "0.2.18",
+    "request": "^2.83.0",
     "socket.io-client": "0.9.16"
   }
 }
