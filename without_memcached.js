@@ -53,12 +53,6 @@ function connectSocket(){
   console.log('Connecting', host);
 
   var socket = io.connect(host + '/stream');
-  socket.on('connect', function(){
-    console.log('Stream Connected');
-    socket.emit('auth_match', 
-      {'match': sample_match_key, 'access_token': access_token});
-  });
-
 
   socket.on('auth_failed', function(){
     console.log('Auth Failed, consider using new access token. And make sure you have access to the connecting match.');
@@ -77,6 +71,11 @@ function connectSocket(){
     console.log('error');
   });
 
+  socket.on('connect', function(){
+    console.log('Stream Connected');
+    socket.emit('auth_match', 
+      {'match': sample_match_key, 'access_token': access_token});
+  });
 
 };
 

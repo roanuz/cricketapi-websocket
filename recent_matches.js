@@ -18,8 +18,6 @@ var API_HOST = 'rest.cricketapi.com',
     API_PREFIX = '/rest/v2/';
 
 
-var sample_match_key = 'icc_wc_2015_p19';
-
 var push_servers = [],
     access_token = null;
 
@@ -92,6 +90,27 @@ function connectSocket(){
   console.log('Connecting', host);
 
   var socket = io.connect(host + '/stream');
+
+  socket.on('auth_failed', function(){
+    console.log('Auth Failed, consider using new access token. And make sure you have access to the connecting match.');
+  });
+
+  socket.on('match_update', function(card){
+    // console.log('respnse', card);
+    let cache_key = 'match|'+card.key+'|full_card'
+    setCache(cache_key, card, card.expires);
+    console.log('Got a match update for', card.key);
+  });
+
+
+  socket.on('event', function(){
+    console.log('event');
+  });
+
+  socket.on('error', function(){
+    console.log('error');
+  });
+
   socket.on('connect', function(){
     console.log('Stream Connected');
     getData('recent_matches/').then((dataResponse)=>{
@@ -116,26 +135,6 @@ function connectSocket(){
     
   });
 
-
-  socket.on('auth_failed', function(){
-    console.log('Auth Failed, consider using new access token. And make sure you have access to the connecting match.');
-  });
-
-  socket.on('match_update', function(card){
-    // console.log('respnse', card);
-    let cache_key = 'match|'+card.key+'|full_card'
-    setCache(cache_key, card, card.expires);
-    console.log('Got a match update for', card.key);
-  });
-
-
-  socket.on('event', function(){
-    console.log('event');
-  });
-
-  socket.on('error', function(){
-    console.log('error');
-  });
 
 
 };
